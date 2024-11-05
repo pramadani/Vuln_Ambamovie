@@ -33,4 +33,19 @@ export class MovieModel {
         const genresString = `{${genres.join(',')}}`;
         await pool.query(`INSERT INTO movies (title, overview, releaseDate, language, genres, poster) VALUES ('${title}', '${overview}', '${releaseDate}', '${language}', '${genresString}', '${poster}')`);
     }
+    // static async getPoster(id: string) {
+    //     try {
+    //         const query = 'SELECT poster FROM movies WHERE id = $1';
+    //         const result = await pool.query(query, [id]);
+
+    //         if (result.rows.length === 0) {
+    //             throw new Error('Film tidak ditemukan');
+    //         }
+
+    //         return result.rows[0].poster_path;
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
+
 }

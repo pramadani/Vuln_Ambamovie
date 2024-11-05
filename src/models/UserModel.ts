@@ -10,8 +10,10 @@ export interface User {
 export class UserModel {
     static async register(email: string, name: string, password: string) {
         const userCheck = await pool.query(`SELECT * FROM users WHERE email = '${email}'`);
+        console.log("aaa")
         if (userCheck && userCheck.rows.length > 0) throw new Error('User with this email already exists');
         await pool.query(`INSERT INTO users (email, name, password) VALUES ('${email}', '${name}', '${password}')`);
+        console.log("bbb")
     }
 
     static async login(email: string, password: string): Promise<User> {

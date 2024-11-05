@@ -6,7 +6,7 @@ export class UserController {
         try {
             const { username, name, password } = req.body;
             const user = await UserModel.register(username, name, password);
-            res.status(201).json(user);
+            res.status(201).json({message:"Register Sukses"});
         } catch (error) {
             res.status(400).json(error);
         }

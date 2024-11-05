@@ -3,7 +3,7 @@ import { Pool } from 'pg';
 export const pool = new Pool({
     user: 'user',
     host: 'localhost',
-    database: 'dbmovie',
+    database: 'moviedb',
     password: 'pass',
     port: 5432,
 });

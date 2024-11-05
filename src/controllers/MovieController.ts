@@ -30,4 +30,23 @@ export class MovieController {
             res.status(500).json(error);
         }
     }
+
+    static async getPoster(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            // const poster = await MovieModel.getPoster(id);
+            
+            // Path lengkap ke file gambar
+            console.log()
+            const imagePath = `src/assets/images/${id}`; // Sesuaikan dengan folder tempat Anda menyimpan gambar
+
+            // Mengirim gambar sebagai file
+            res.sendFile(imagePath, { root: '.' }, (err) => {
+            });
+        } catch (error) {
+            const err = error as Error;
+            res.status(500).json({ message: err.message });
+        }
+    }
+
 }

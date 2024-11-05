@@ -1,14 +1,28 @@
+version: '3.8'
+
 services:
-  postgres:
+  db:
     image: postgres:latest
     environment:
+      POSTGRES_DB: moviedb
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
-      POSTGRES_DB: moviedb
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf  # Menambahkan file konfigurasi
+    command: -c 'config_file=/etc/postgresql/postgresql.conf'  # Menggunakan file konfigurasi khusus
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
 
 volumes:
-  pgdata:
+  postgres_data:
