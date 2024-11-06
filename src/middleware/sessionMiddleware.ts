@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET!;
-interface Token extends JwtPayload {
+
+export interface Token extends JwtPayload {
     user: string;
     role: string;
 }
