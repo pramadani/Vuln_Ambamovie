@@ -22,5 +22,19 @@ services:
     depends_on:
       - db
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node_app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+
 volumes:
   postgres_data:
