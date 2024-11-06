@@ -21,4 +21,11 @@ export class UserModel {
         if (password !== user.password) throw new Error('Incorrect password');
         return user;
     }
+
+    static async getUserById(id: string) {
+        const userResult = await pool.query(`SELECT email, name FROM users WHERE id = ${id}`);
+        if (userResult.rows.length === 0) throw new Error('User not found');
+        const user = userResult.rows[0];
+        return { email: user.email, name: user.name };
+    }
 }

@@ -1,10 +1,9 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import movieRouter from './routes/MovieRoute';
 import reviewRouter from './routes/ReviewRoute';
 import userRouter from './routes/UserRoute';
-import dotenv from 'dotenv';
 import { connectDB } from './config/dbConnection';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
