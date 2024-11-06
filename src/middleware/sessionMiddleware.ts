@@ -10,25 +10,63 @@ interface Token extends JwtPayload {
     role: string;
 }
 
-export function sessionMiddleware(req: Request, res: Response, next: NextFunction): void {
-    const authHeader = req.headers.authorization;
-    const token = authHeader?.split(' ')[1];
+export class SessionMiddleware {
+    static authToken(req: Request, res: Response, next: NextFunction): void {
+        try {
+            const authHeader = req.headers.authorization;
+            const token = authHeader?.split(' ')[1];
 
-    if (!token) {
-        res.status(401).json({ message: 'Access token is missing' });
-        return;
-    }
+            if (!token) {
+                res.status(401).json({ message: 'Access token is missing' });
+                return;
+            }
 
-    jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
-        if (err || !decodedToken) {
-            res.status(403).json({ message: 'Invalid token' });
+            jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+                if (err || !decodedToken) {
+                    res.status(403).json({ message: 'Invalid token' });
+                    return;
+                }
+
+                const decoded = decodedToken as Token;
+                req.body.user_id = decoded.user_id;
+                req.body.role = decoded.role;
+
+                next();
+            });
+        } catch (error) {
+            const err = error as Error
+            res.status(500).json({ message: err.message });
             return;
         }
+    }
 
-        const decoded = decodedToken as Token;
-        req.body.user_id = decoded.user_id;
-        req.body.role = decoded.role;
+    static authRole(req: Request, res: Response, next: NextFunction): void {
+        try {
+            const { user, role, user_id } = req.body;
 
-        next();
-    });
+            if (role === 'user') {
+                req.body.user = user_id;
+                next();
+            }
+
+            else if (role === 'admin') {
+                if (!user) {
+                    res.status(400).json({ message: 'Admin must have a user in the request body' });
+                    return;
+                }
+                next();
+            }
+
+            else {
+                res.status(400).json({ message: 'Role not recognized' });
+                return;
+            }
+            
+        } catch (error) {
+            const err = error as Error
+            res.status(500).json({ message: err.message });
+            return;
+        }
+    }
 }
+

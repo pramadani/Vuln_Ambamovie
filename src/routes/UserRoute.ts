@@ -1,15 +1,28 @@
 import express from 'express';
 import { UserController } from '../controllers/UserController';
-import { hashMiddleware } from '../middleware/hashMiddleware';
-import { sessionMiddleware } from '../middleware/sessionMiddleware';
-import { roleMiddleware } from '../middleware/roleMiddleware';
-import { passMiddleware } from '../middleware/passMiddleware';
-import { emailMiddleware } from '../middleware/emailMiddleware';
+import { UserMiddleware } from '../middleware/UserMiddleware';
+import { SessionMiddleware } from '../middleware/SessionMiddleware';
+import { CryptMiddleware } from '../middleware/CryptMiddleware';
 
 const userRouter = express.Router();
 
-userRouter.post('/register', emailMiddleware, passMiddleware, hashMiddleware, UserController.register);
-userRouter.post('/login', emailMiddleware, hashMiddleware, UserController.login);
-userRouter.get('/user', sessionMiddleware, roleMiddleware, UserController.login);
+userRouter.post('/register',
+    UserMiddleware.validateEmail,
+    UserMiddleware.validatePassword,
+    CryptMiddleware.hashPassword,
+    UserController.register
+);
+
+userRouter.post('/login',
+    UserMiddleware.validateEmail,
+    CryptMiddleware.hashPassword,
+    UserController.login
+);
+
+userRouter.get('/user',
+    SessionMiddleware.authToken,
+    SessionMiddleware.authRole,
+    UserController.login
+);
 
 export default userRouter;

@@ -23,7 +23,7 @@ export class UserController {
         try {
             const { email, password } = req.body;
             const user = await UserModel.login(email, password);
-            let role = user.email === process.env.ADMIN_EMAIL ? "admin" : "user";
+            let role = user.email === process.env.ADMIN_EMAIL! ? "admin" : "user";
 
             const token = jwt.sign(
                 { user_id: user.id, role: role },

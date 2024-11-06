@@ -17,7 +17,7 @@ app.use('/users', userRouter);
 
 const startServer = async () => {
     await connectDB();
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.SERVER_PORT!;
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 };
 
