@@ -5,10 +5,11 @@ export class UserController {
     static async register(req: Request, res: Response) {
         try {
             const { username, name, password } = req.body;
-            const user = await UserModel.register(username, name, password);
-            res.status(201).json({message:"Register Sukses"});
+            await UserModel.register(username, name, password);
+            res.status(201).json({ message: "Register success" });
         } catch (error) {
-            res.status(400).json(error);
+            const err = error as Error
+            res.status(400).json({ message: err.message });
         }
     }
 

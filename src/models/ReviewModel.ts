@@ -15,7 +15,6 @@ export interface ReviewWithUser {
     star: number;
     comment: string;
     user: {
-        id: string;
         name: string;
     };
 }
@@ -26,8 +25,23 @@ export class ReviewModel {
     }
 
     static async getReviews(movieId: string): Promise<ReviewWithUser[]> {
-        const result = await pool.query(`SELECT * FROM reviews WHERE movie_id = '${movieId}'`);
-        return result.rows;
+        const result = await pool.query(`
+            SELECT reviews.*, users.name 
+            FROM reviews 
+            JOIN users ON reviews.user_id = users.id 
+            WHERE reviews.movie_id = '${movieId}'
+        `);
+
+        return result.rows.map(row => ({
+            id: row.id,
+            userId: row.user_id,
+            movieId: row.movie_id,
+            star: row.star,
+            comment: row.comment,
+            user: {
+                name: row.name
+            }
+        }));
     }
 
     static async updateReview(userId: string, movieId: string, star: number, comment: string) {
