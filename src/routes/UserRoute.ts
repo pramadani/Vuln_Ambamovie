@@ -1,7 +1,7 @@
 import express from 'express';
 import { UserController } from '../controllers/UserController';
 import { UserMiddleware } from '../middleware/UserMiddleware';
-import { SessionMiddleware } from '../middleware/SessionMiddleware';
+import { SessionMiddleware } from '../middleware/SSessionMiddleware';
 import { CryptMiddleware } from '../middleware/CryptMiddleware';
 
 const userRouter = express.Router();

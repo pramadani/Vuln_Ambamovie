@@ -1,6 +1,6 @@
 import express from 'express';
 import { ReviewController } from '../controllers/ReviewController';
-import { SessionMiddleware } from '../middleware/SessionMiddleware';
+import { SessionMiddleware } from '../middleware/SSessionMiddleware';
 
 const reviewRouter = express.Router();
 
