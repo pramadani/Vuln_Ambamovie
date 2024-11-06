@@ -45,7 +45,16 @@ export const createTables = async () => {
 };
 
 export const connectDB = async () => {
-    await pool.connect();
-    console.log('Connected to the database successfully.');
-    await createTables();
+    const tryConnect = async () => {
+        try {
+            await pool.connect();
+            console.log('Connected to the database successfully.');
+            await createTables();
+        } catch (err) {
+            console.error('Database connection failed, retrying in 5 seconds...');
+            setTimeout(tryConnect, 5000); 
+        }
+    };
+
+    tryConnect();
 };
