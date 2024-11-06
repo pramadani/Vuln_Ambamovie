@@ -30,7 +30,12 @@ export class MovieModel {
         genres: string[], 
         poster: string
     ) {
-        const genresString = `{${genres.join(',')}}`;
-        await pool.query(`INSERT INTO movies (title, overview, releaseDate, language, genres, poster) VALUES ('${title}', '${overview}', '${releaseDate}', '${language}', '${genresString}', '${poster}')`);
+        const query = `
+            INSERT INTO movies (title, overview, release_date, language, genres, poster)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        
+        const genresString = genres;
+        await pool.query(query, [title, overview, releaseDate, language, genresString, poster]);
     }
 }
