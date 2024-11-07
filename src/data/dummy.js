@@ -8,7 +8,7 @@ fetch(url)
         // Iterate through the results to format and send the data
         data.results.forEach(async (movie) => {
             // Prepare the payload for the POST request
-            const payload = {
+            let payload = {
                 title: movie.title,
                 overview: movie.overview,
                 releaseDate: movie.release_date,
@@ -21,14 +21,32 @@ fetch(url)
             const genreNames = await getGenreNames(payload.genres);
             payload.genres = genreNames;
 
+            // Ensure the payload is displayed with double quotes in the console
+            
+            
+            payload = [{
+                title: "Joker: Folie à Deux",
+                overview: "While struggling with his dual identity, Arthur Fleck not only stumbles upon true love, but also finds the music that's always been inside him.",
+                releaseDate: "2024-10-01",
+                language: "en",
+                genres: [
+                    "Drama",
+                    "Crime",
+                    "Thriller"
+                ],
+                poster: "if8QiqCI7WAGImKcJCfzp6VTyKA.jpg"
+            }]
+            console.log(JSON.stringify(payload[0], null, 2)); // Pretty print with 2 spaces indentation
+
+
             // Send the data as a POST request to the createMovie endpoint
-            const postUrl = 'http://ambamovie.pramadani.com/movies'; // Replace with your API endpoint URL
+            const postUrl = 'https://ambamovie.pramadani.com/movies'; // Replace with your API endpoint URL
             fetch(postUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(payload[0]),
             })
                 .then(postResponse => postResponse.json())
                 .then(postData => {
