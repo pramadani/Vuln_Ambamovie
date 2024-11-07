@@ -38,7 +38,7 @@ export class MovieModel {
                 genres,
                 poster
             FROM movies 
-            WHERE id = ${id}
+            WHERE id = '${id}'
         `;
         const result = await pool.query(query);
         if (result.rows.length === 0) throw new Error('Movie not found');
