@@ -61,6 +61,6 @@ export class ReviewModel {
             WHERE user_id = '${userId}' AND movie_id = '${movieId}'
         `;
         const result = await pool.query(query);
-        if (result.rows.length === 0) throw new Error('Review not found');
+        if (result.rowCount === 0) throw new Error('Review not found');
     }
 }

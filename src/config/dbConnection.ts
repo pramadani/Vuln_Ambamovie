@@ -39,7 +39,8 @@ export const createTables = async () => {
             user_id UUID REFERENCES users(id),
             movie_id UUID REFERENCES movies(id),
             star INTEGER,
-            comment TEXT
+            comment TEXT,
+            CONSTRAINT unique_user_movie_review UNIQUE (user_id, movie_id)
         );
     `);
 };
