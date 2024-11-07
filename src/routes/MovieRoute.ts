@@ -15,8 +15,6 @@ movieRouter.get('/:id',
 );
 
 movieRouter.post('/',
-    SessionMiddleware.authToken,
-    SessionMiddleware.authRole,
     MovieController.createMovie
 );
 
