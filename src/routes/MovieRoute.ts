@@ -1,6 +1,6 @@
 import express from 'express';
 import { MovieController } from '../controllers/MovieController';
-import { SessionMiddleware } from '../middleware/SessionMiddleware';
+import { SessionMiddleware } from '../middlewares/SessionMiddleware';
 
 const movieRouter = express.Router();
 
