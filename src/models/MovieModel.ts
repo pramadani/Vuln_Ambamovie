@@ -29,8 +29,16 @@ export class MovieModel {
 
     static async getMovie(id: string): Promise<Movie> {
         const query = `
-            SELECT * FROM movies 
-            WHERE id = '${id}'
+            SELECT 
+                id,
+                title,
+                overview,
+                TO_CHAR(release_date, 'YYYY-MM-DD') AS release_date,
+                language,
+                genres,
+                poster
+            FROM movies 
+            WHERE id = ${id}
         `;
         const result = await pool.query(query);
         if (result.rows.length === 0) throw new Error('Movie not found');
