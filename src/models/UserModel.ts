@@ -43,7 +43,7 @@ export class UserModel {
     static async getUserById(id: string): Promise<UserNonCredential> {
         const query = `
             SELECT email, name 
-            FROM users WHERE id = ${id}
+            FROM users WHERE id = '${id}'
         `;
         const userResult = await pool.query(query);
         if (userResult.rows.length === 0) throw new Error('User not found');
