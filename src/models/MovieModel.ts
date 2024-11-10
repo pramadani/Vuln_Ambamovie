@@ -18,13 +18,9 @@ export interface MovieTitle {
 
 export class MovieModel {
     static async getMovies(): Promise<MovieTitle[]> {
-        const query = 'SELECT * FROM movies';
+        const query = 'SELECT id, title, poster FROM movies';
         const result = await pool.query(query);
-        return result.rows.map(row => ({
-            id: row.id,
-            title: row.title,
-            poster: row.poster
-        }));
+        return result.rows;
     }
 
     static async getMovie(id: string): Promise<Movie> {

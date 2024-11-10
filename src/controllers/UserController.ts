@@ -28,7 +28,7 @@ export class UserController {
             const token = jwt.sign(
                 { user_id: user.id, role: role },
                 JWT_SECRET,
-                { expiresIn: '1h' }
+                { expiresIn: '2h' }
             );
 
             res.status(200).json({ token });
