@@ -22,7 +22,7 @@ userRouter.post('/login',
 userRouter.get('/user',
     SessionMiddleware.authToken,
     SessionMiddleware.authRole,
-    UserController.login
+    UserController.getUser
 );
 
 export default userRouter;
