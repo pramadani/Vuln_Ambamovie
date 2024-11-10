@@ -45,8 +45,12 @@ export class SessionMiddleware {
         try {
             const { user, role, user_id } = req.body;
 
+            console.log(user)
+            console.log(user_id)
             if (role === 'user') {
-                req.body.user = user_id;
+                if (user == null) {
+                    req.body.user = user_id;
+                }
                 next();
             }
 
