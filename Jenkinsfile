@@ -30,18 +30,23 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                script {
+                    sh '''
+                    docker compose build
+                    '''
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
                 script {
-                    try {
-                        sh '''
-                        docker compose down
-                        docker compose build
-                        docker compose up -d
-                        '''
-                    } catch (Exception e) {
-                        error "Deployment failed: ${e.message}"
-                    }
+                    sh '''
+                    docker compose down
+                    docker compose up -d
+                    '''
                 }
             }
         }
