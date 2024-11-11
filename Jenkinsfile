@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        gradle 'Gradle'
+        maven 'Maven'
     }
 
     stages {
@@ -16,8 +16,7 @@ pipeline {
             steps {
                 withSonarQubeEnv("SonarQube Server") {
                     sh '''
-                    gradle init
-                    gradle sonarqube \
+                    mvn clean verify sonar:sonar \ \
                         -Dsonar.projectKey=Vuln_Ambamovie \
                         -Dsonar.host.url=$SONAR_HOST_URL \
                         -Dsonar.login=$SONAR_AUTH_TOKEN
