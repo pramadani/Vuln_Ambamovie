@@ -21,6 +21,7 @@ userRouter.post('/login',
 
 userRouter.get('/user',
     SessionMiddleware.authToken,
+    SessionMiddleware.authRole,
     UserController.getUser
 );
 

@@ -53,10 +53,10 @@ export class SessionMiddleware {
             }
 
             else if (role === 'admin') {
-                if (!user) {
-                    res.status(400).json({ message: 'Admin must have a user in the request body' });
-                    return;
-                }
+                // if (!user) {
+                //     res.status(400).json({ message: 'Admin must have a user in the request body' });
+                //     return;
+                // }
                 next();
             }
 
