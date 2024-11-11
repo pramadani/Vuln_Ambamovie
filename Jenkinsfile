@@ -6,6 +6,10 @@ pipeline {
         SONARQUBE_SERVER = 'SonarQube Server'
     }
 
+    tools {
+        gradle 'Gradle'
+    }
+
     stages {
         stage('Checkout') {
             steps {
