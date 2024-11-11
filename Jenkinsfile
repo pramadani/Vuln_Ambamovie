@@ -16,6 +16,7 @@ pipeline {
             steps {
                 withSonarQubeEnv("SonarQube Server") {
                     sh '''
+                    gradle init
                     gradle sonarqube \
                         -Dsonar.projectKey=Vuln_Ambamovie \
                         -Dsonar.host.url=$SONAR_HOST_URL \
