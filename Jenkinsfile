@@ -16,7 +16,7 @@ pipeline {
             steps {
                 withSonarQubeEnv("SonarQube Server") {
                     sh '''
-                    mvn clean verify sonar:sonar \ \
+                    mvn clean verify sonar:sonar \
                         -Dsonar.projectKey=Vuln_Ambamovie \
                         -Dsonar.host.url=$SONAR_HOST_URL \
                         -Dsonar.login=$SONAR_AUTH_TOKEN
