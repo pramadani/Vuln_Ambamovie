@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -16,7 +12,7 @@ pipeline {
             steps {
                 withSonarQubeEnv("SonarQube Server") {
                     sh '''
-                    mvn clean verify sonar:sonar \
+                    sonar-scanner \
                         -Dsonar.projectKey=Vuln_Ambamovie \
                         -Dsonar.host.url=$SONAR_HOST_URL \
                         -Dsonar.login=$SONAR_AUTH_TOKEN
