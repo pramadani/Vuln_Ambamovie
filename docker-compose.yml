@@ -5,6 +5,8 @@ services:
       POSTGRES_DB: moviedb
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -30,10 +32,10 @@ services:
       ADMIN_EMAIL: admin@email.com
       SERVER_PORT: 3000
       DB_USER: user
-      DB_HOST: db
+      DB_HOST: https://ambadata.pramadani.com
       DB_NAME: moviedb
       DB_PASS: pass
-      DB_PORT: 5432
+      # DB_PORT: 5432
       JWT_SECRET: your-secret-key
     restart: always
     ports:
