@@ -57,6 +57,7 @@ export class SessionMiddleware {
                 //     res.status(400).json({ message: 'Admin must have a user in the request body' });
                 //     return;
                 // }
+                req.body.user = user_id;
                 next();
             }
 
