@@ -15,8 +15,9 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
+                    def scannerHome = tool 'sonarscanner';
                     withSonarQubeEnv('sonarserver') {
-                        sh "${tool('sonarscanner')}/bin/sonar-scanner"
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
@@ -25,8 +26,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 script {
-                    // Menunggu hasil analisis quality gate dari SonarQube
-                    timeout(time: 5, unit: 'MINUTES') { // Waktu tunggu maksimal 5 menit
+                    timeout(time: 5, unit: 'MINUTES') {
                         def qualityGate = waitForQualityGate()
                         if (qualityGate.status != 'OK') {
                             error "Pipeline failed due to SonarQube quality gate status: ${qualityGate.status}"
