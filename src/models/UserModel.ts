@@ -11,7 +11,7 @@ export interface UserNonCredential {
     email: string;
     name: string;
 }
-
+//
 export class UserModel {
     static async register(email: string, name: string, password: string) {
         const insertQuery = `
