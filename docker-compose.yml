@@ -35,7 +35,7 @@ services:
       DB_HOST: db
       DB_NAME: moviedb
       DB_PASS: pass
-      # DB_PORT: 5432
+      DB_PORT: 5432
       JWT_SECRET: your-secret-key
     restart: always
     ports:

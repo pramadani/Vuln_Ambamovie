@@ -8,19 +8,19 @@ export const pool = new Pool({
     host: process.env.DB_HOST!,
     database: process.env.DB_NAME!,
     password: process.env.DB_PASS!,
-    // port: parseInt(process.env.DB_PORT!),
+    port: parseInt(process.env.DB_PORT!),
 });
 
 export const createTables = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            id SERIAL PRIMARY KEY,
             email VARCHAR(255) UNIQUE,
             name VARCHAR(255),
             password VARCHAR(255)
         );
     `);
-
+    
     await pool.query(`
         CREATE TABLE IF NOT EXISTS movies (
             id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -32,17 +32,18 @@ export const createTables = async () => {
             poster VARCHAR(255)
         );
     `);
-
+    
     await pool.query(`
         CREATE TABLE IF NOT EXISTS reviews (
             id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            user_id UUID REFERENCES users(id),
+            user_id INTEGER REFERENCES users(id),
             movie_id UUID REFERENCES movies(id),
             star INTEGER,
             comment TEXT,
             CONSTRAINT unique_user_movie_review UNIQUE (user_id, movie_id)
         );
     `);
+    
 };
 
 export const connectDB = async () => {

@@ -14,13 +14,6 @@ export interface UserNonCredential {
 
 export class UserModel {
     static async register(email: string, name: string, password: string) {
-        const query = `
-            SELECT * FROM users 
-            WHERE email = '${email}'
-        `;
-        const userCheck = await pool.query(query);
-        if (userCheck && userCheck.rows.length > 0) throw new Error('User with this email already exists');
-
         const insertQuery = `
             INSERT INTO users (email, name, password) 
             VALUES ('${email}', '${name}', '${password}')
