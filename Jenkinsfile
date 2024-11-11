@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        SONAR_PROJECT_KEY = 'Vuln_Ambamovie'
-        SONARQUBE_SERVER = 'SonarQube Server'
-    }
-
     tools {
         gradle 'Gradle'
     }
@@ -19,10 +14,10 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(SONARQUBE_SERVER) {
+                withSonarQubeEnv("SonarQube Server") {
                     sh '''
                     gradle sonarqube \
-                        -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                        -Dsonar.projectKey=Vuln_Ambamovie \
                         -Dsonar.host.url=$SONAR_HOST_URL \
                         -Dsonar.login=$SONAR_AUTH_TOKEN
                     '''
