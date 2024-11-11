@@ -1,7 +1,7 @@
 import { pool } from "../config/dbConnection";
 
 export interface User {
-    id: string;
+    id: number;
     email: string;
     name: string;
     password: string;

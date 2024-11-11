@@ -43,26 +43,12 @@ export class SessionMiddleware {
 
     static authRole(req: Request, res: Response, next: NextFunction): void {
         try {
-            const { user, role, user_id } = req.body;
+            const { user, user_id } = req.body;
 
-            if (role === 'user') {
-                if (user == null) {
-                    req.body.user = user_id;
-                }
-                next();
+            if (user == null) {
+                req.body.user = user_id;
             }
-
-            else if (role === 'admin') {
-                if (user == null) {
-                    req.body.user = user_id;
-                }
-                next();
-            }
-
-            else {
-                res.status(400).json({ message: 'Role not recognized' });
-                return;
-            }
+            next();
             
         } catch (error) {
             const err = error as Error

@@ -2,7 +2,7 @@ import { pool } from '../config/dbConnection';
 
 export interface Review {
     id: string;
-    userId: string;
+    userId: number;
     movieId: string;
     star: number;
     comment: string;
@@ -10,7 +10,7 @@ export interface Review {
 
 export interface ReviewWithUser {
     id: string;
-    userId: string;
+    userId: number;
     movieId: string;
     userName: string;
     star: number;

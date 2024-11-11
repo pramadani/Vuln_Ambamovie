@@ -1,7 +1,7 @@
 import { pool } from "../config/dbConnection";
 
 export interface Movie {
-    id: string;
+    id: number;
     title: string;
     overview: string;
     releaseDate: string;
@@ -11,7 +11,7 @@ export interface Movie {
 }
 
 export interface MovieTitle {
-    id: string;
+    id: number;
     title: string;
     poster: string;
 }

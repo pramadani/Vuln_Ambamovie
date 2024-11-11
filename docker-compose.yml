@@ -5,6 +5,7 @@ services:
       POSTGRES_DB: moviedb
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -15,6 +16,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "8081:80"
+    restart: always
     depends_on:
       - db
     volumes:
@@ -33,6 +35,7 @@ services:
       DB_PASS: pass
       DB_PORT: 5432
       JWT_SECRET: your-secret-key
+    restart: always
     ports:
       - "3000:3000"
     depends_on:
