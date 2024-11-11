@@ -10,11 +10,13 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("SonarQube Server") {
+                def scannerHome = tool 'sonarscanner';
+                withSonarQubeEnv("sonarserver") {
                     sh '''
-                    sonar-scanner \
+                    ${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=Vuln_Ambamovie \
                         -Dsonar.host.url=$SONAR_HOST_URL \
+                        -Dsonar.sources=. \
                         -Dsonar.login=$SONAR_AUTH_TOKEN
                     '''
                 }
