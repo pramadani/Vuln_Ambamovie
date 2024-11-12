@@ -8,6 +8,12 @@ pipeline {
             }
         }
 
+        stage('Dependency Installation') {
+            steps {
+                sh "npm install"
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
