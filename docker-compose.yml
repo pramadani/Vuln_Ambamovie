@@ -5,8 +5,6 @@ services:
       POSTGRES_DB: moviedb
       POSTGRES_USER: user
       POSTGRES_PASSWORD: 0tiTvjvTL2SLyyUZcRdphrgwxM32Ch5M
-    ports:
-      - "5432:5432"
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -38,15 +36,12 @@ services:
       DB_PORT: 5432
       JWT_SECRET: n6T53xLzyR4v9sX16bMT8tSSMbKxpmrf
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     depends_on:
       - db
 
   nginx:
     image: nginx:alpine
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
