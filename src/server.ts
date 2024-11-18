@@ -22,8 +22,8 @@ const startServer = async () => {
     await connectDB();
 
     const sslOptions = {
-        key: fs.readFileSync('../ssl/privkey.pem', 'utf8'),
-        cert: fs.readFileSync('../ssl/fullchain.pem', 'utf8'),
+        key: fs.readFileSync('ssl/privkey.pem', 'utf8'),
+        cert: fs.readFileSync('ssl/fullchain.pem', 'utf8'),
     };
 
     https.createServer(sslOptions, app).listen(443, () => {
