@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: moviedb
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: o61KKz:NP3CJG6$p4.84ke}x1%L4]8Cj
+      POSTGRES_PASSWORD: 0tiTvjvTL2SLyyUZcRdphrgwxM32Ch5M
     ports:
       - "5432:5432"
     restart: unless-stopped
@@ -15,7 +15,7 @@ services:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: kE5H:S9Y;J3Qntx#y%D/G9T]l"(nMr,q
+      PGADMIN_DEFAULT_PASSWORD: DLtRFd61i4i15yOlJOJwT9SZcSi6ERMX
     ports:
       - "8081:80"
     restart: unless-stopped
@@ -34,9 +34,9 @@ services:
       DB_USER: user
       DB_HOST: db
       DB_NAME: moviedb
-      DB_PASS: o61KKz:NP3CJG6$p4.84ke}x1%L4]8Cj
+      DB_PASS: 0tiTvjvTL2SLyyUZcRdphrgwxM32Ch5M
       DB_PORT: 5432
-      JWT_SECRET: Q%._4U4Ym!lR@mi;Gy0XnxKn>xlr0&lR
+      JWT_SECRET: n6T53xLzyR4v9sX16bMT8tSSMbKxpmrf
     restart: unless-stopped
     ports:
       - "3000:3000"
