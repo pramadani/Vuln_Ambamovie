@@ -14,7 +14,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routing
 app.use('/movies', movieRouter);
 app.use('/reviews', reviewRouter);
 app.use('/users', userRouter);
@@ -22,15 +21,13 @@ app.use('/users', userRouter);
 const startServer = async () => {
     await connectDB();
 
-    const PORT = 443;
-
     const sslOptions = {
         key: fs.readFileSync('../ssl/privkey.pem', 'utf8'),
         cert: fs.readFileSync('../ssl/fullchain.pem', 'utf8'),
     };
 
-    https.createServer(sslOptions, app).listen(PORT, () => {
-        console.log(`Server is running on HTTPS port ${PORT}`);
+    https.createServer(sslOptions, app).listen(443, () => {
+        console.log(`Server is running on HTTPS port ${443}`);
     });
 };
 
