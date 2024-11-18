@@ -4,10 +4,10 @@ services:
     environment:
       POSTGRES_DB: moviedb
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
+      POSTGRES_PASSWORD: o61KKz:NP3CJG6$p4.84ke}x1%L4]8Cj
     ports:
       - "5432:5432"
-    restart: always
+    restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -15,10 +15,10 @@ services:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_PASSWORD: kE5H:S9Y;J3Qntx#y%D/G9T]l"(nMr,q
     ports:
       - "8081:80"
-    restart: always
+    restart: unless-stopped
     depends_on:
       - db
     volumes:
@@ -34,10 +34,10 @@ services:
       DB_USER: user
       DB_HOST: db
       DB_NAME: moviedb
-      DB_PASS: pass
+      DB_PASS: o61KKz:NP3CJG6$p4.84ke}x1%L4]8Cj
       DB_PORT: 5432
-      JWT_SECRET: your-secret-key
-    restart: always
+      JWT_SECRET: Q%._4U4Ym!lR@mi;Gy0XnxKn>xlr0&lR
+    restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:

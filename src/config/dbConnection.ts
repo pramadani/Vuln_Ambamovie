@@ -14,7 +14,7 @@ export const pool = new Pool({
 export const createTables = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             email VARCHAR(255) UNIQUE,
             name VARCHAR(255),
             password VARCHAR(255)
@@ -36,14 +36,13 @@ export const createTables = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS reviews (
             id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            user_id INTEGER REFERENCES users(id),
+            user_id UUID REFERENCES users(id),
             movie_id UUID REFERENCES movies(id),
             star INTEGER,
             comment TEXT,
             CONSTRAINT unique_user_movie_review UNIQUE (user_id, movie_id)
         );
     `);
-    
 };
 
 export const connectDB = async () => {
