@@ -44,11 +44,8 @@ export class SessionMiddleware {
     static authRole(req: Request, res: Response, next: NextFunction): void {
         try {
             const { user, user_id } = req.body;
-
-            console.log(user)
-            console.log(user_id)
     
-            if (user !== null) {
+            if (user) {
                 if (user !== user_id) {
                     res.status(403).json({ message: "User ID mismatch. Access denied." });
                     return;
@@ -56,13 +53,12 @@ export class SessionMiddleware {
             } else {
                 req.body.user = user_id;
             }
+    
             next();
-            
         } catch (error) {
             const err = error as Error;
-            res.status(500).json({ message: err.message });
-            return;
+            res.status(500).json({ message: "An internal server error occurred.", error: err.message });
         }
-    }    
+    }
 }
 
