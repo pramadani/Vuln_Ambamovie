@@ -8,12 +8,6 @@ pipeline {
             }
         }
 
-        stage('Dependency Installation') {
-            steps {
-                sh "npm install"
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -54,6 +48,39 @@ pipeline {
                     docker compose up -d
                     '''
                 }
+            }
+        }
+
+        stage('OWASP ZAP Security Scan') {
+            steps {
+                script {
+                    def target = 'https://ambamovie.pramadani.com'
+
+                    sh """
+                        docker run -v ${PWD}:/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t $target -r /zap/wrk/report.html
+                    """
+                }
+            }
+        }
+
+        stage('Display Report') {
+            steps {
+                script {
+                    if (fileExists("${WORKSPACE}/report.html")) {
+                        publishHTML(target: [
+                            reportName: 'OWASP ZAP Security Report',
+                            reportDir: '.',
+                            reportFiles: 'report.html',
+                            alwaysLinkToLastBuild: true
+                        ])
+                    }
+                }
+            }
+        }
+
+        post {
+            always {
+                cleanWs()
             }
         }
     }
