@@ -35,6 +35,8 @@ services:
       DB_PASS: 0tiTvjvTL2SLyyUZcRdphrgwxM32Ch5M
       DB_PORT: 5432
       JWT_SECRET: n6T53xLzyR4v9sX16bMT8tSSMbKxpmrf
+    ports:
+      - "3000:3000"
     restart: unless-stopped
     depends_on:
       - db
