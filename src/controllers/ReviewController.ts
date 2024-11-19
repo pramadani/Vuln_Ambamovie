@@ -8,7 +8,7 @@ export class ReviewController {
             await ReviewModel.createReview(user, movie, star, comment);
             res.status(201).json({ message: "Review created" });
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(400).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;
@@ -23,7 +23,7 @@ export class ReviewController {
             const result = await ReviewModel.getReviews(movie);
             res.status(200).json(result);
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(500).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;
@@ -38,7 +38,7 @@ export class ReviewController {
             await ReviewModel.updateReview(user, movie, star, comment);
             res.status(200).json({ message: "Review updated" });
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(404).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;
@@ -53,7 +53,7 @@ export class ReviewController {
             await ReviewModel.deleteReview(user, movie);
             res.status(204).json({ message: "Review deleted" });
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(404).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;

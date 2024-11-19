@@ -14,10 +14,6 @@ movieRouter.get('/:id',
     MovieController.getMovie
 );
 
-movieRouter.post('/',
-    MovieController.createMovie
-);
-
 movieRouter.get('/poster/:id',
     SessionMiddleware.authToken,
     MovieController.getPoster

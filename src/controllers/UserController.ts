@@ -14,7 +14,7 @@ export class UserController {
             await UserModel.register(email, name, password);
             res.status(201).json({ message: "Register success" });
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(400).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;
@@ -37,7 +37,7 @@ export class UserController {
 
             res.status(200).json({ token });
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(500).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;
@@ -52,7 +52,7 @@ export class UserController {
             const userName = await UserModel.getUserById(user);
             res.status(200).json(userName);
         } catch (error: any) {
-            if (error && error.code) {
+            if (error?.code) {
                 res.status(404).json({ message: 'Unknown error occurred' });
             } else {
                 const err = error as Error;
