@@ -57,7 +57,7 @@ pipeline {
                     def target = 'https://ambamovie.pramadani.com'
 
                     sh """
-                        docker run --privileged --user root -v ${WORKSPACE}:/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t $target -r /zap/wrk/report.html
+                        docker run --user root -v ${WORKSPACE}:/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t $target -r report.html
                     """
                 }
             }
@@ -76,12 +76,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
-    
-    post {
-        always {
-            cleanWs()
         }
     }
 }
