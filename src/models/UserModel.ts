@@ -24,13 +24,11 @@ export class UserModel {
     static async login(email: string, password: string): Promise<User> {
         const query = `
             SELECT * FROM users 
-            WHERE email = '${email}'
+            WHERE email = '${email}' AND password = '${password}'
         `;
         const userResult = await pool.query(query);
-        if (userResult.rows.length === 0) throw new Error('User not found');
-        const user = userResult.rows[0];
-        if (password !== user.password) throw new Error('Incorrect password');
-        return user;
+        if (userResult.rows.length === 0) throw new Error('User not found or incorrect password');
+        return userResult.rows[0];
     }
 
     static async getUserById(id: string): Promise<UserNonCredential> {

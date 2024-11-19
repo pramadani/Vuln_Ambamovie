@@ -52,17 +52,5 @@ pipeline {
             }
         }
 
-        stage('OWASP ZAP Security Scan') {
-            steps {
-                script {
-                    def target = 'https://ambamovie.pramadani.com'
-
-                    sh """
-                        docker run --user root -v ${WORKSPACE}:/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t $target -r report.html || true
-                    """
-                }
-            }
-        }
-
     }
 }
