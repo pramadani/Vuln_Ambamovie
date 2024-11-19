@@ -43,9 +43,14 @@ export class SessionMiddleware {
 
     static authRole(req: Request, res: Response, next: NextFunction): void {
         try {
-            const { user, user_id } = req.body;
+            const { user, user_id, role } = req.body;
     
-            if (user) {
+            if (role === "admin") {
+                next();
+                return;
+            }
+        
+            if (user !== null) {
                 if (user !== user_id) {
                     res.status(403).json({ message: "User ID mismatch. Access denied." });
                     return;
@@ -61,4 +66,3 @@ export class SessionMiddleware {
         }
     }
 }
-
