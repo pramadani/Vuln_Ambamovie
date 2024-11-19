@@ -44,6 +44,9 @@ export class SessionMiddleware {
     static authRole(req: Request, res: Response, next: NextFunction): void {
         try {
             const { user, user_id } = req.body;
+
+            console.log(user)
+            console.log(user_id)
     
             if (user !== null) {
                 if (user !== user_id) {
