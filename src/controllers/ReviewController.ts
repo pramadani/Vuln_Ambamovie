@@ -7,9 +7,13 @@ export class ReviewController {
             const { user, movie, star, comment } = req.body;
             await ReviewModel.createReview(user, movie, star, comment);
             res.status(201).json({ message: "Review created" });
-        } catch (error) {
-            const err = error as Error
-            res.status(400).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(400).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(400).json({ message: err.message });
+            }
         }
     }
 
@@ -18,9 +22,13 @@ export class ReviewController {
             const { movie } = req.params;
             const result = await ReviewModel.getReviews(movie);
             res.status(200).json(result);
-        } catch (error) {
-            const err = error as Error
-            res.status(500).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(500).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(500).json({ message: err.message });
+            }
         }
     }
 
@@ -29,9 +37,13 @@ export class ReviewController {
             const { user, movie, star, comment } = req.body;
             await ReviewModel.updateReview(user, movie, star, comment);
             res.status(200).json({ message: "Review updated" });
-        } catch (error) {
-            const err = error as Error
-            res.status(404).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(404).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(404).json({ message: err.message });
+            }
         }
     }
 
@@ -40,9 +52,13 @@ export class ReviewController {
             const { user, movie } = req.body;
             await ReviewModel.deleteReview(user, movie);
             res.status(204).json({ message: "Review deleted" });
-        } catch (error) {
-            const err = error as Error
-            res.status(404).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(404).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(404).json({ message: err.message });
+            }
         }
     }
 }

@@ -13,9 +13,13 @@ export class UserController {
             const { email, name, password } = req.body;
             await UserModel.register(email, name, password);
             res.status(201).json({ message: "Register success" });
-        } catch (error) {
-            const err = error as Error
-            res.status(400).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(400).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(400).json({ message: err.message });
+            }
         }
     }
 
@@ -32,9 +36,13 @@ export class UserController {
             );
 
             res.status(200).json({ token });
-        } catch (error) {
-            const err = error as Error;
-            res.status(500).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(500).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(500).json({ message: err.message });
+            }
         }
     }
 
@@ -43,9 +51,13 @@ export class UserController {
             const { user } = req.body;
             const userName = await UserModel.getUserById(user);
             res.status(200).json(userName);
-        } catch (error) {
-            const err = error as Error;
-            res.status(404).json({ message: err.message });
+        } catch (error: any) {
+            if (error && error.code) {
+                res.status(404).json({ message: 'Unknown error occurred' });
+            } else {
+                const err = error as Error;
+                res.status(404).json({ message: err.message });
+            }
         }
     }
 }
