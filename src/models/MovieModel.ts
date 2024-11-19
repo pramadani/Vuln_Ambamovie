@@ -40,29 +40,4 @@ export class MovieModel {
         if (result.rows.length === 0) throw new Error('Movie not found');
         return result.rows[0];
     }
-
-    static async createMovie(
-        title: string,
-        overview: string,
-        releaseDate: string,
-        language: string,
-        genres: string[],
-        poster: string
-    ) {
-        const query = `
-            INSERT INTO movies (title, overview, release_date, language, genres, poster)
-            VALUES ($1, $2, $3, $4, $5, $6)
-        `;
-
-        const values = [
-            title,
-            overview,
-            releaseDate,
-            language,
-            genres,
-            poster
-        ];
-
-        await pool.query(query, values);
-    }
 }

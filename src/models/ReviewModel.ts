@@ -19,11 +19,24 @@ export interface ReviewWithUser {
 
 export class ReviewModel {
     static async createReview(userId: string, movieId: string, star: number, comment: string) {
-        const query = `
+        const checkQuery = `
+            SELECT 1 FROM reviews 
+            WHERE user_id = '${userId}' AND movie_id = '${movieId}' 
+            LIMIT 1
+        `;
+        
+        const result = await pool.query(checkQuery);
+        
+        if (result.rows.length > 0) {
+            throw new Error('Review already exists');
+        }
+    
+        const insertQuery = `
             INSERT INTO reviews (user_id, movie_id, star, comment) 
             VALUES ('${userId}', '${movieId}', ${star}, '${comment}')
         `;
-        await pool.query(query);
+        
+        await pool.query(insertQuery);
     }
 
     static async getReviews(movieId: string): Promise<ReviewWithUser[]> {
