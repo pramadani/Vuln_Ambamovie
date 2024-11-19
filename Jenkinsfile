@@ -57,7 +57,7 @@ pipeline {
                     def target = 'https://ambamovie.pramadani.com'
 
                     sh """
-                        docker run -v ${PWD}:/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t $target -r /zap/wrk/report.html
+                        docker run -v ${WORKSPACE}:/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t $target -r /zap/wrk/report.html
                     """
                 }
             }
