@@ -1,14 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
-import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 export class CryptMiddleware {
-    static async hashPassword(req: Request, res: Response, next: NextFunction) {
+    static hashPassword(req: Request, res: Response, next: NextFunction) {
         try {
             if (req.body.password) {
                 const password = req.body.password;
 
-                const saltRounds = 10;
-                const hashedPassword = await bcrypt.hash(password, saltRounds);
+                const hashedPassword = crypto
+                    .createHash('sha256')
+                    .update(password)
+                    .digest('hex');
 
                 req.body.password = hashedPassword;
             }
