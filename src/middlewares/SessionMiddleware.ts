@@ -44,17 +44,22 @@ export class SessionMiddleware {
     static authRole(req: Request, res: Response, next: NextFunction): void {
         try {
             const { user, user_id } = req.body;
-
-            if (user == null) {
+    
+            if (user !== null) {
+                if (user !== user_id) {
+                    res.status(403).json({ message: "User ID mismatch. Access denied." });
+                    return;
+                }
+            } else {
                 req.body.user = user_id;
             }
             next();
             
         } catch (error) {
-            const err = error as Error
+            const err = error as Error;
             res.status(500).json({ message: err.message });
             return;
         }
-    }
+    }    
 }
 
