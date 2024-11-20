@@ -33,11 +33,23 @@ services:
       DB_PASS: pass
       DB_PORT: 5432
       JWT_SECRET: your-secret-key
+      REDIS_HOST: redis # Tambahkan variabel lingkungan untuk Redis
+      REDIS_PORT: 6379  # Port default Redis
     ports:
       - "3000:3000"
     depends_on:
       - db
+      - redis  # Tambahkan dependensi ke Redis
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"  # Port Redis untuk komunikasi
+    volumes:
+      - redis_data:/data  # Penyimpanan data Redis (opsional)
 
 volumes:
   postgres_data:
   pgadmin_data:
+  redis_data:  # Volume Redis untuk persistensi data (opsional)

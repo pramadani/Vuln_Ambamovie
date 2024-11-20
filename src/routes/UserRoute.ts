@@ -1,8 +1,8 @@
 import express from 'express';
 import { UserController } from '../controllers/UserController';
-import { UserMiddleware } from '../middlewares/UserMiddleware';
 import { SessionMiddleware } from '../middlewares/SessionMiddleware';
 import { CryptMiddleware } from '../middlewares/CryptMiddleware';
+import { UserMiddleware } from '../middlewares/UserMiddleware';
 
 const userRouter = express.Router();
 
@@ -14,8 +14,9 @@ userRouter.post('/register',
 );
 
 userRouter.post('/login',
-    UserMiddleware.validateEmail,
+    UserMiddleware.loginRateLimiter,
     CryptMiddleware.hashPassword,
+    UserMiddleware.validateEmail,
     UserController.login
 );
 
