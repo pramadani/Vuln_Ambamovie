@@ -16,11 +16,11 @@ export class UserModel {
     static async register(email: string, name: string, password: string) {
         const checkEmailQuery = `
             SELECT 1 FROM users 
-            WHERE email = '${email}'
+            WHERE email = $1
             LIMIT 1
         `;
         
-        const result = await pool.query(checkEmailQuery);
+        const result = await pool.query(checkEmailQuery, [email]);
         
         if (result.rows.length > 0) {
             throw new Error('Email is already registered');
@@ -28,18 +28,18 @@ export class UserModel {
     
         const insertQuery = `
             INSERT INTO users (email, name, password) 
-            VALUES ('${email}', '${name}', '${password}')
+            VALUES ($1, $2, $3)
         `;
         
-        await pool.query(insertQuery);
+        await pool.query(insertQuery, [email, name, password]);
     }
 
     static async login(email: string, password: string): Promise<User> {
         const query = `
             SELECT * FROM users 
-            WHERE email = '${email}' AND password = '${password}'
+            WHERE email = $1 AND password = $2
         `;
-        const userResult = await pool.query(query);
+        const userResult = await pool.query(query, [email, password]);
         if (userResult.rows.length === 0) throw new Error('User not found or incorrect password');
         return userResult.rows[0];
     }
@@ -47,9 +47,9 @@ export class UserModel {
     static async getUserById(id: string): Promise<UserNonCredential> {
         const query = `
             SELECT email, name 
-            FROM users WHERE id = '${id}'
+            FROM users WHERE id = $1
         `;
-        const userResult = await pool.query(query);
+        const userResult = await pool.query(query, [id]);
         if (userResult.rows.length === 0) throw new Error('User not found');
         const user = userResult.rows[0];
         return { email: user.email, name: user.name };

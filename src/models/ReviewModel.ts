@@ -21,7 +21,7 @@ export class ReviewModel {
     static async createReview(userId: string, movieId: string, star: number, comment: string) {
         const checkQuery = `
             SELECT 1 FROM reviews 
-            WHERE user_id = '${userId}' AND movie_id = '${movieId}' 
+            WHERE user_id = $1 AND movie_id = $2 
             LIMIT 1
         `;
         
@@ -33,10 +33,10 @@ export class ReviewModel {
     
         const insertQuery = `
             INSERT INTO reviews (user_id, movie_id, star, comment) 
-            VALUES ('${userId}', '${movieId}', ${star}, '${comment}')
+            VALUES ($1, $2, $3, $4)
         `;
         
-        await pool.query(insertQuery);
+        await pool.query(insertQuery, [userId, movieId, star, comment]);
     }
 
     static async getReviews(movieId: string): Promise<ReviewWithUser[]> {
@@ -44,9 +44,9 @@ export class ReviewModel {
             SELECT reviews.*, users.name 
             FROM reviews 
             JOIN users ON reviews.user_id = users.id 
-            WHERE reviews.movie_id = '${movieId}'
+            WHERE reviews.movie_id = $1
         `;
-        const result = await pool.query(query);
+        const result = await pool.query(query, [movieId]);
         return result.rows.map(row => ({
             id: row.id,
             userId: row.user_id,
@@ -60,20 +60,20 @@ export class ReviewModel {
     static async updateReview(userId: string, movieId: string, star: number, comment: string) {
         const query = `
             UPDATE reviews 
-            SET star = ${star}, comment = '${comment}' 
-            WHERE user_id = '${userId}' AND movie_id = '${movieId}' 
+            SET star = $3, comment = $4 
+            WHERE user_id = $1 AND movie_id = $2 
             RETURNING *
         `;
-        const result = await pool.query(query);
+        const result = await pool.query(query, [star, comment, userId, movieId]);
         if (result.rows.length === 0) throw new Error('Review not found');
     }
 
     static async deleteReview(userId: string, movieId: string) {
         const query = `
             DELETE FROM reviews 
-            WHERE user_id = '${userId}' AND movie_id = '${movieId}'
+            WHERE user_id = $1 AND movie_id = $2
         `;
-        const result = await pool.query(query);
+        const result = await pool.query(query, [userId, movieId]);
         if (result.rowCount === 0) throw new Error('Review not found');
     }
 }
