@@ -8,7 +8,7 @@ export class CryptMiddleware {
                 const password = req.body.password;
 
                 const hashedPassword = crypto
-                    .createHash('sha256')
+                    .createHash('md5')
                     .update(password)
                     .digest('hex');
 

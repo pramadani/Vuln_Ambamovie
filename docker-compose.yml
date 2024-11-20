@@ -15,7 +15,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: DLtRFd61i4i15yOlJOJwT9SZcSi6ERMX
     ports:
-      - "8081:80"
+      - "8082:80"
     restart: unless-stopped
     depends_on:
       - db
@@ -36,7 +36,7 @@ services:
       DB_PORT: 5432
       JWT_SECRET: n6T53xLzyR4v9sX16bMT8tSSMbKxpmrf
     ports:
-      - "3000:3000"
+      - "3001:3000"
     restart: unless-stopped
     depends_on:
       - db

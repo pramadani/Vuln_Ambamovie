@@ -7,15 +7,12 @@ import { UserMiddleware } from '../middlewares/UserMiddleware';
 const userRouter = express.Router();
 
 userRouter.post('/register',
-    UserMiddleware.validateEmail,
-    UserMiddleware.validatePassword,
     CryptMiddleware.hashPassword,
     UserController.register
 );
 
 userRouter.post('/login',
     CryptMiddleware.hashPassword,
-    UserMiddleware.validateEmail,
     UserController.login
 );
 
