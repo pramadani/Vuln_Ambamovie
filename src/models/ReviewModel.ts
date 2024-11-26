@@ -64,7 +64,7 @@ export class ReviewModel {
             WHERE user_id = $1 AND movie_id = $2 
             RETURNING *
         `;
-        const result = await pool.query(query, [star, comment, userId, movieId]);
+        const result = await pool.query(query, [userId, movieId, star, comment]);
         if (result.rows.length === 0) throw new Error('Review not found');
     }
 
