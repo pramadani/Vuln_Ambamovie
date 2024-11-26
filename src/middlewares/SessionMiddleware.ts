@@ -61,9 +61,10 @@ export class SessionMiddleware {
                     return;
                 }
             }
-            if (!user) req.body.user = user_id;
-    
+
+            req.body.user = user_id;
             next();
+            
         } catch (error) {
             const err = error as Error;
             res.status(500).json({ message: "An internal server error occurred.", error: err.message });
