@@ -50,9 +50,9 @@ export class SessionMiddleware {
                 return;
             }
         
-            if (user !== null) {
+            if (user) {
                 if (user !== user_id) {
-                    res.status(403).json({ message: "User ID mismatch. Access denied." });
+                    res.status(403).json({ message: "Access denied." });
                     return;
                 }
             } else {
