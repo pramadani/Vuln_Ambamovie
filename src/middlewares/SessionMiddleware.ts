@@ -49,15 +49,19 @@ export class SessionMiddleware {
                 next();
                 return;
             }
+
+            console.log(1)
+            console.log(user)
+            console.log(2)
+            console.log(user_id)
         
             if (user) {
                 if (user !== user_id) {
                     res.status(403).json({ message: "Access denied." });
                     return;
                 }
-            } else {
-                req.body.user = user_id;
             }
+            if (!user) req.body.user = user_id;
     
             next();
         } catch (error) {
