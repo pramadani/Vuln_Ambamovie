@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import rateLimit from 'express-rate-limit';
 import Redis from 'ioredis';
-import RedisStore, { RedisReply } from 'rate-limit-redis';
+// import RedisStore, { RedisReply } from 'rate-limit-redis';
+// import rateLimit from 'express-rate-limit';
 
 const emailSchema = z.string()
     .email({ message: 'Invalid email format' });
