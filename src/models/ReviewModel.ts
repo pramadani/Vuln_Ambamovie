@@ -25,7 +25,7 @@ export class ReviewModel {
             LIMIT 1
         `;
         
-        const result = await pool.query(checkQuery);
+        const result = await pool.query(checkQuery, [userId, movieId]);
         
         if (result.rows.length > 0) {
             throw new Error('Review already exists');
