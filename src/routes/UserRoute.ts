@@ -2,7 +2,7 @@ import express from 'express';
 import { UserController } from '../controllers/UserController';
 import { SessionMiddleware } from '../middlewares/SessionMiddleware';
 import { CryptMiddleware } from '../middlewares/CryptMiddleware';
-import { UserMiddleware } from '../middlewares/UserMiddleware';
+//import { UserMiddleware } from '../middlewares/UserMiddleware';
 
 const userRouter = express.Router();
 
